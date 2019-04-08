@@ -21,17 +21,31 @@ Element.prototype.remove = function() {
 };
 
 const getMyEmailAddress = function () {
-	const accountInfo = document.querySelector("div[aria-label='Account Information']");
-	if (accountInfo) {
-		for (const child of accountInfo.getElementsByTagName("*")) {
-			if (child.children.length > 0) continue;
-			const emailMatch = (child.innerText || "").match(emailRegex);
-			if (emailMatch) return emailMatch[0];
-		}
-	}
-
-	return "";
+        return "billmwong@gmail.com"
 };
+
+const composeReminder = function () {
+        const myEmail = getMyEmailAddress();
+
+        const composeButton = document.querySelector(".T-I.J-J5-Ji.T-I-KE.L3");
+        triggerMouseEvent(composeButton, "mousedown");
+        triggerMouseEvent(composeButton, "mouseup");
+
+        waitForElement("textarea[name='to']", to => {
+                const title = document.querySelector("input[name='subjectbox']");
+                const body = document.querySelector("div[aria-label='Message Body']");
+
+                to.value = myEmail;
+                title.value = "Reminder";
+                body.focus();
+        });
+}
+
+document.addEventListener('keypress', event => {
+        if (event.key === 'r') {
+                composeReminder();
+        }
+})
 
 const triggerMouseEvent = function (node, event) {
 	const mouseUpEvent = document.createEvent("MouseEvents");
@@ -430,22 +444,7 @@ const queryParentSelector = (elm, sel) => {
 document.addEventListener("DOMContentLoaded", function(event) {
 	const addReminder = document.createElement("div");
 	addReminder.className = "add-reminder";
-	addReminder.addEventListener("click", function (e) {
-		const myEmail = getMyEmailAddress();
-
-		const composeButton = document.querySelector(".T-I.J-J5-Ji.T-I-KE.L3");
-		triggerMouseEvent(composeButton, "mousedown");
-		triggerMouseEvent(composeButton, "mouseup");
-
-		waitForElement("textarea[name='to']", to => {
-			const title = document.querySelector("input[name='subjectbox']");
-			const body = document.querySelector("div[aria-label='Message Body']");
-
-			to.value = myEmail;
-			title.value = "Reminder";
-			body.focus();
-		});
-	});
+	addReminder.addEventListener("click", composeReminder);
 	document.body.appendChild(addReminder);
 
 	updateReminders();
