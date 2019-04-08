@@ -689,7 +689,7 @@ li.bqX.brv {
 /* Inbox: message list layout */
 .nH .AO .aeF {
 	min-width: 512px;
-	margin-right: 7vw;
+	/* margin-right: 7vw; */
 	width: auto;
 }
 
