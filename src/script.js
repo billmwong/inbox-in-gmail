@@ -32,12 +32,13 @@ const composeReminder = function () {
         triggerMouseEvent(composeButton, "mouseup");
 
         waitForElement("textarea[name='to']", to => {
-                const title = document.querySelector("input[name='subjectbox']");
-                const body = document.querySelector("div[aria-label='Message Body']");
-
-                to.value = myEmail;
-                title.value = "Reminder";
-                body.focus();
+                waitForElement("input[name='subjectbox']", subject => {
+                        waitForElement("div[aria-label='Message Body']", body => {
+                                to.value = myEmail;
+                                subject.value = "Reminder";
+                                body.focus();
+                        });
+                });
         });
 }
 
