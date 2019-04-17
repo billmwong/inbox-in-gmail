@@ -37,6 +37,7 @@ const composeReminder = function () {
                                 to.value = myEmail;
                                 subject.value = "Reminder";
                                 body.focus();
+                                body.focus(); // do it twice for good measure
                         });
                 });
         });
