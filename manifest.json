@@ -1,9 +1,23 @@
 {
-  "name": "Inbox in Gmail",
-  "version": "0.4.7",
+  "name": "Inbox Reborn",
+  "version": "0.4.8",
   "manifest_version": 2,
-  "description": "This extension adds features like reminders and the clean style from Google Inbox in Gmail",
+  "description": "This extension re-creates Inbox's lost features like reminders, email bundling and the minimalistic style in Gmail.",
   "homepage_url": "https://github.com/boukestam/inbox-in-gmail",
+  "browser_action": {
+    "default_popup": "src/options/options.html"
+  },
+  "options_ui": {
+    "page": "src/options/options.html",
+    "open_in_tab": false
+  },
+  "background": {
+    "scripts": ["src/background.js"],
+    "persistent": false
+  },
+  "permissions": [
+    "storage"
+  ],
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -17,16 +31,13 @@
       "css": [
         "src/style.css"
       ],
-      "run_at": "document_start"
-    },
-    {
-      "matches": [
-        "https://mail.google.com/*"
-      ],
       "js": [
         "src/script.js"
       ],
       "run_at": "document_start"
     }
+  ],
+  "web_accessible_resources": [
+    "images/*"
   ]
 }
