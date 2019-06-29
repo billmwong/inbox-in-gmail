@@ -747,13 +747,20 @@ const composeReminder = function () {
 
                 to.value = myEmail;
                 title.value = 'Reminder';
-                body.focus();
+                setTimeout(() => body.focus(), 100);
         });
 }
 
 document.addEventListener('keypress', event => {
         if (event.key === 'r') {
-                composeReminder();
+                const activeElement = document.activeElement
+                if (
+                    activeElement.nodeName !== 'INPUT' &&
+                    activeElement.nodeName !== 'TEXTAREA' &&
+                    !activeElement.classList.contains('editable')
+                ) {
+                        composeReminder();
+                }
         }
 })
 
